@@ -1,0 +1,142 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="jakarta.faces.facelets" xmlns:h="jakarta.faces.html"
+	template="/predlozak.xhtml">
+
+	<ui:define name="naslovStranice">Nadzorna konzola partnera</ui:define>
+	<ui:define name="content">
+
+		<h:outputStylesheet library="css" name="status.css" />
+		<h:outputStylesheet library="css" name="forma.css" />
+		<h:outputStylesheet library="css" name="tablica.css" />
+
+		<ui:param name="partner" value="#{prijavaKorisnika.odabraniPartner}" />
+
+		<h:panelGroup rendered="#{empty partner}">
+			<div class="status_item status_neuspijesan"
+				style="padding-bottom: 20px;">
+				<span class="status_ikona"> </span> ✗ <span>"Niste odabrali
+					partnera"</span>
+			</div>
+		</h:panelGroup>
+
+		<div class="kontrola_container">
+
+			<div class="forma_kontroler_container">
+				<form id="formaKontroler">
+					<input type="hidden" id="skriveniId"
+						value="#{prijavaKorisnika.odabraniPartner.getId()}" />
+					<button type="submit" class="forma-gumb">Osvježi podatke</button>
+				</form>
+			</div>
+
+			<div id="partneri-container">
+				<table>
+					<tr class="naslov_tablice">
+						<td>RAD POSLUŽITELJA</td>
+						<td><span id="rad"></span></td>
+					</tr>
+					<h:panelGroup rendered="#{not empty partner}">
+						<tr class="red_tablice">
+							<td>BROJ OTVORENIH NARUDŽBI</td>
+							<td><span id="obracuni"></span></td>
+						</tr>
+						<tr class="red_tablice">
+							<td>BROJ RAČUNA</td>
+							<td><span id="poruka_tekst"></span></td>
+						</tr>
+					</h:panelGroup>
+				</table>
+			</div>
+		</div>
+
+		<div class="status_container">
+
+			<h:form styleClass="status"
+				action="#{radPosluziteljaPartner.provjeriRadPosluzitelja}">
+				<div
+					class="#{radPosluziteljaPartner.status == 200
+                      ? 'status_item status_uspijesan'
+                      : 'status_item status_neuspijesan'}">
+					<span class="status_ikona"> #{radPosluziteljaPartner.status
+						== 200 ? '✓' : '✗'} </span> <span> Status CIJELI POSLUŽITELJ -
+						PARTNER #{radPosluziteljaPartner.status} </span>
+				</div>
+
+				<h:commandButton value="Zaustavi"
+					action="#{radPosluziteljaPartner.zaustaviPosluzitelja}"
+					styleClass="status_gumb_crveni"
+					rendered="#{radPosluziteljaPartner.status == 200}" />
+			</h:form>
+
+			<h:form styleClass="status">
+				<div
+					class="#{radPosluziteljaPartner.statusPrijem == 200
+                      ? 'status_item status_uspijesan'
+                      : 'status_item status_neuspijesan'}">
+					<span class="status_ikona">
+						#{radPosluziteljaPartner.statusPrijem == 200 ? '✓' : '✗'} </span> <span>
+						Status POSLUŽITELJ PRIJEM - 
+						#{radPosluziteljaPartner.statusPrijem} </span>
+				</div>
+
+				<h:panelGroup rendered="#{radPosluziteljaPartner.status == 200}">
+
+					<h:commandButton value="Zaustavi"
+						action="#{radPosluziteljaPartner.zaustaviPosluziteljaPrijem}"
+						styleClass="status_gumb_crveni"
+						rendered="#{radPosluziteljaPartner.statusPrijem == 200}" />
+
+					<h:commandButton value="Pokreni"
+						action="#{radPosluziteljaPartner.pokreniPosluziteljaPrijem}"
+						styleClass="status_gumb_zeleni"
+						rendered="#{radPosluziteljaPartner.statusPrijem != 200}" />
+				</h:panelGroup>
+			</h:form>
+
+		</div>
+
+		<script type="text/javascript">
+			var wsocket;
+			function connect() {
+				var adresa = window.location.pathname;
+				var dijelovi = adresa.split("/");
+				adresa = "ws://" + window.location.hostname + ":"
+						+ window.location.port + "/" + dijelovi[1]
+						+ "/ws/partneri";
+				if ('WebSocket' in window) {
+					wsocket = new WebSocket(adresa);
+				} else if ('MozWebSocket' in window) {
+					wsocket = new MozWebSocket(adresa);
+				} else {
+					alert('WebSocket nije podržan od web preglednika.');
+					return;
+				}
+				wsocket.onmessage = onMessage;
+
+				let statusPoslan = false;
+
+				wsocket.onopen = function() {
+					if (!statusPoslan) {
+						var id = document.getElementById('skriveniId').value;
+						wsocket.send(id.toString());
+						statusPoslan = true;
+					}
+				};
+			}
+			function onMessage(evt) {
+				var poruka = evt.data;
+				var dijelovi = poruka.split(";");
+				var radElem = document.getElementById("rad");
+				var obracuniElem = document.getElementById("obracuni");
+				var porukaElem = document.getElementById("poruka_tekst");
+				radElem.innerHTML = dijelovi[0];
+				obracuniElem.innerHTML = dijelovi[1];
+				porukaElem.innerHTML = dijelovi[2];
+			}
+
+			window.addEventListener("load", connect, false);
+		</script>
+	</ui:define>
+	<ui:define name="nav">
+	</ui:define>
+</ui:composition>

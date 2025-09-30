@@ -1,0 +1,30 @@
+<ui:composition template="/predlozak.xhtml"
+	xmlns:ui="jakarta.faces.facelets" xmlns:h="jakarta.faces.html"
+	xmlns:f="jakarta.faces.core">
+
+	<ui:define name="naslovStranice">Vježba 8 zadaća 3 - Prikaz jelovnika</ui:define>
+	<ui:define name="content">
+		<h:outputStylesheet library="css" name="tablica.css" />
+		<h:outputStylesheet library="css" name="status.css" />
+		<h:outputStylesheet library="css" name="forma.css" />
+
+		<div class="forma-container">
+			<br />
+			<h:form>
+				<div class="status_item status_neuspijesan"
+					style="padding-bottom: 20px;">
+					<span class="status_ikona"> </span> ✗ <span>"Nespiješno
+						plaćanje"</span>
+
+				</div>
+
+				<h:button id="submit" value=" Povratak na nova narudzba "
+					class="forma-gumb" outcome="/privatno/novaNarudzba.xhtml" />
+
+			</h:form>
+		</div>
+
+	</ui:define>
+	<ui:define name="nav">
+	</ui:define>
+</ui:composition>

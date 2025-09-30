@@ -1,0 +1,73 @@
+:root {
+	--tamno_plava: #4facfe;
+	--svijetlo_plava: #00f2fe;
+	--prijelaz_plava: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+	--siva: #4a5568;
+	--tamno_ljubicasta: #764ba2;
+	--svijetlo_ljubicasta: #667eea;
+	--vrh_tablice: #9d6bd1;
+	--prijelaz_ljubicasta: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	--prijelaz_narancasta: linear-gradient(135deg, #ff6b6b, #ffa500);
+	--prijelaz_siva: linear-gradient(45deg, #fff, #f0f0f0);
+}
+
+#partneri-container {
+	margin-left: 20px;
+	margin-top: 20px;
+	display: flex;
+	flex-direction: row; 
+	justify-content : center; 
+	gap :20px;
+	align-items: center;
+	min-width: 300px;
+	padding: 20px;
+	background: transparent;
+	align-items: center;
+	justify-content: center;
+	gap: 20px;
+}
+
+#partneri-container table {
+	border-collapse: collapse;
+	border-radius: 10px;
+	overflow: hidden;
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+#partneri-container .naslov_tablice {
+	background: var(--prijelaz_ljubicasta);
+}
+
+#partneri-container th {
+	color: white;
+	padding: 15px 20px;
+	text-align: center;
+	font-weight: 600;
+	font-size: 14px;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	border: none;
+}
+
+#partneri-container td {
+	padding: 12px 20px;
+	text-align: center;
+	border: none;
+	font-size: 14px;
+	font-weight: 500;
+}
+
+#partneri-container .red_tablice:nth-child(even) {
+	background: white;
+	color: #333;
+}
+
+#partneri-container .red_tablice:nth-child(odd) {
+	background: var(--svijetlo_ljubicasta);
+	color: white;
+}
+
+#partneri-container .red_tablice:hover {
+	background: var(--prijelaz_narancasta);
+	color: white;
+}

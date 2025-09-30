@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="jakarta.faces.facelets">
+<h:head>
+	<h:outputStylesheet library="css" name="default.css" />
+	<h:outputStylesheet library="css" name="cssLayout.css" />
+	<title><ui:insert name="title"></ui:insert></title>
+
+</h:head>
+<h:body>
+
+	<div class="forma-container">
+		<br />
+		<h:form>
+			<div class="status_item status_neuspijesan"
+				style="padding-bottom: 20px;">
+				<span class="status_ikona"> </span> ✗ <span>"Neovlašten pristup"</span>
+			</div>
+			<h:button id="submit" value=" Povratak na početnu stranicu "
+				class="forma-gumb" outcome="/index.xhtml" />
+
+		</h:form>
+
+		<h:outputStylesheet library="css" name="tablica.css" />
+		<h:outputStylesheet library="css" name="status.css" />
+		<h:outputStylesheet library="css" name="forma.css" />
+
+	</div>
+</h:body>
+</html>

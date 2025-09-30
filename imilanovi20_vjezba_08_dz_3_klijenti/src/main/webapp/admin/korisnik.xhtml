@@ -1,0 +1,54 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="jakarta.faces.facelets" xmlns:h="jakarta.faces.html"
+	template="/predlozak.xhtml">
+
+	<ui:define name="naslovStranice">
+    Vježba 8 zadaća 3 - Detalji korisnika
+  </ui:define>
+
+	<ui:define name="content">
+		<h:outputStylesheet library="css" name="tablica.css" />
+
+		<div id="partneri-container">
+			<ui:param name="kor"
+				value="#{upravljanjeKorisnicima.trazeniKorisnik}" />
+			<ui:fragment rendered="#{not empty kor}">
+				<table>
+
+					<thead class="naslov_tablice">
+						<tr>
+							<th>Korisničko ime</th>
+							<th><h:outputText value="#{kor.korisnik()}" /></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="red_tablice">
+							<td><h:outputText />Lozinka</td>
+							<td><h:outputText value="#{kor.lozinka()}" /></td>
+
+						</tr>
+						<tr class="red_tablice">
+							<td><h:outputText />Prezime</td>
+							<td><h:outputText value="#{kor.prezime()}" /></td>
+
+						</tr>
+						<tr class="red_tablice">
+							<td><h:outputText />Ime</td>
+							<td><h:outputText value="#{kor.ime()}" /></td>
+
+						</tr>
+						<tr class="red_tablice">
+							<td><h:outputText />Email</td>
+							<td><h:outputText value="#{kor.email()}" /></td>
+
+						</tr>
+
+
+					</tbody>
+				</table>
+			</ui:fragment>
+		</div>
+	</ui:define>
+
+	<ui:define name="nav" />
+</ui:composition>

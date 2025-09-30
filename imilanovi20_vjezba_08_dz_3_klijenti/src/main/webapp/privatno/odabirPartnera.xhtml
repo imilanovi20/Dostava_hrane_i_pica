@@ -1,0 +1,52 @@
+<ui:composition template="/predlozak.xhtml"
+	xmlns:ui="jakarta.faces.facelets" xmlns:h="jakarta.faces.html"
+	xmlns:f="jakarta.faces.core">
+
+	<ui:define name="naslovStranice">Zadaća 3 - Odabir partnera/restorana</ui:define>
+	<ui:define name="content">
+
+		<h:panelGroup
+			rendered="#{upravljanjeNarudzbama.statusPostojiNarudzba == 200}">
+
+			<div class="forma-container">
+				<br />
+				<h:form>
+					<div class="status_item status_neuspijesan"
+						style="padding-bottom: 20px;">
+						<span class="status_ikona"> </span> ✗ <span>"Narudžba u tijeku"</span>
+					</div>
+
+				</h:form>
+			</div>
+
+		</h:panelGroup>
+
+		<h:panelGroup
+			rendered="#{upravljanjeNarudzbama.statusPostojiNarudzba != 200}">
+
+			<div class="forma-container">
+				<h2>Odabir partnera/restorana</h2>
+				<br />
+				<h:form>
+					<h:outputLabel for="partner" class="forma-label">
+						<h:outputText value="Partner:" />
+					</h:outputLabel>
+					<h:selectOneMenu value="#{odabirParnera.partner}"
+						class="forma-select">
+						<f:selectItems value="#{odabirParnera.partneri}" var="p"
+							itemLabel="#{p.getNaziv()} - #{p.getVrstakuhinje()}"
+							itemValue="#{p.getId()}" />
+					</h:selectOneMenu>
+
+					<h:commandButton id="submit" value=" Odaberi partnera "
+						class="forma-gumb" action="#{odabirParnera.odaberiPartnera}" />
+				</h:form>
+			</div>
+		</h:panelGroup>
+
+		<h:outputStylesheet library="css" name="forma.css" />
+		<h:outputStylesheet library="css" name="status.css" />
+	</ui:define>
+	<ui:define name="nav">
+	</ui:define>
+</ui:composition>

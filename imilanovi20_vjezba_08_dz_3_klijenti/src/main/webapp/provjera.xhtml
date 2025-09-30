@@ -1,0 +1,37 @@
+<ui:composition template="/predlozak.xhtml"
+	xmlns:ui="jakarta.faces.facelets" xmlns:h="jakarta.faces.html">
+
+	<ui:define name="naslovStranice">Vježba 8 - zadaća 3 - Provjera poslužitelja Partner</ui:define>
+
+	<ui:define name="content">
+
+		<div class="status">
+			<h:panelGroup
+				rendered="#{not empty radPosluziteljaPartner.statusPoruka}">
+				<div
+					class="status_item #{radPosluziteljaPartner.status == 200 ? 'status_uspijesan' : 'status_neuspijesan'}">
+					<span class="status_ikona"> #{radPosluziteljaPartner.status
+						== 200 ? '✓' : '✗'} </span> <span>Status poslužitelja:
+						#{radPosluziteljaPartner.status}</span>
+				</div>
+
+				<div
+					class="status_item #{radPosluziteljaPartner.status == 200 ? 'status_uspijesan' : 'status_neuspijesan'}">
+					<span>#{radPosluziteljaPartner.statusPoruka}</span>
+				</div>
+			</h:panelGroup>
+
+			<h:panelGroup rendered="#{empty radPosluziteljaPartner.statusPoruka}">
+				<div class="status_item status_neuspijesan">
+					<span>Nema podataka o statusu poslužitelja</span>
+				</div>
+			</h:panelGroup>
+		</div>
+
+		<h:outputStylesheet library="css" name="status.css" />
+	</ui:define>
+
+	<ui:define name="nav">
+	</ui:define>
+
+</ui:composition>

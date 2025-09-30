@@ -1,0 +1,70 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                template="/predlozak.xhtml">
+
+  <ui:define name="naslovStranice">Detalji partnera</ui:define>
+
+  <ui:define name="content">
+    <h:outputStylesheet library="css" name="tablica.css" />
+
+    <ui:param name="p" value="#{prijavaKorisnika.trazeniPartner}" />
+
+    <ui:fragment rendered="#{not empty p}">
+      <div id="partneri-container">
+        <table>
+          <thead class="naslov_tablice">
+            <tr>
+              <th colspan="2">Partner ID #{p.getId()}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="red_tablice">
+              <td>ID</td>
+              <td><h:outputText value="#{p.getId()}" /></td>
+            </tr>
+            <tr class="red_tablice">
+              <td>Naziv</td>
+              <td><h:outputText value="#{p.getNaziv()}" /></td>
+            </tr>
+            <tr class="red_tablice">
+              <td>Adresa</td>
+              <td><h:outputText value="#{p.getAdresa()}" /></td>
+            </tr>
+            <tr class="red_tablice">
+              <td>Admin kod</td>
+              <td><h:outputText value="#{p.getAdminkod()}" /></td>
+            </tr>
+            <tr class="red_tablice">
+              <td>Sigurnosni kod</td>
+              <td><h:outputText value="#{p.getSigurnosnikod()}" /></td>
+            </tr>
+            <tr class="red_tablice">
+              <td>Vrsta kuhinje</td>
+              <td><h:outputText value="#{p.getVrstakuhinje()}" /></td>
+            </tr>
+            <tr class="red_tablice">
+              <td>Mrežna vrata (rad)</td>
+              <td><h:outputText value="#{p.getMreznavrata()}" /></td>
+            </tr>
+            <tr class="red_tablice">
+              <td>Mrežna vrata (kraj)</td>
+              <td><h:outputText value="#{p.getMreznavratakraj()}" /></td>
+            </tr>
+            <tr class="red_tablice">
+              <td>GPS širina</td>
+              <td><h:outputText value="#{p.getGpssirina()}" /></td>
+            </tr>
+            <tr class="red_tablice">
+              <td>GPS dužina</td>
+              <td><h:outputText value="#{p.getGpsduzina()}" /></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </ui:fragment>
+
+  </ui:define>
+
+  <ui:define name="nav" />
+</ui:composition>

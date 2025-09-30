@@ -1,0 +1,101 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="jakarta.faces.facelets" xmlns:h="jakarta.faces.html"
+	xmlns:f="jakarta.faces.core" template="/predlozak.xhtml">
+
+	<ui:define name="naslovStranice">Vježba 8 – Pregled obračuna</ui:define>
+
+	<ui:define name="content">
+		<h:outputStylesheet library="css" name="forma.css" />
+		<h:outputStylesheet library="css" name="tablica.css" />
+
+
+		<div class="forma-container">
+			<h2 class="forma-naslov">Pretraživanje obračuna</h2>
+			<h:form>
+
+				<div class="forma-red">
+					<div class="forma-grupa">
+						<h:outputLabel for="vrijemeOd" value="Datum od"
+							styleClass="forma-label" />
+						<h:inputText id="vrijemeOd"
+							value="#{upravljanjeObracunima.vrijemeOd}"
+							styleClass="forma-input">
+							<f:passThroughAttribute name="type" value="datetime-local" />
+						</h:inputText>
+					</div>
+
+					<div class="forma-grupa">
+						<h:outputLabel for="vrijemeDo" value="Datum do"
+							styleClass="forma-label" />
+						<h:inputText id="vrijemeDo"
+							value="#{upravljanjeObracunima.vrijemeDo}"
+							styleClass="forma-input">
+							<f:passThroughAttribute name="type" value="datetime-local" />
+						</h:inputText>
+					</div>
+
+				</div>
+
+				<div class="forma-grupa-3">
+					<div class="forma-grupa">
+
+						<h:outputLabel for="partner" class="forma-label">
+							<h:outputText value="Partner:" />
+						</h:outputLabel>
+						<h:selectOneMenu value="#{upravljanjeObracunima.partnerId}"
+							class="forma-select">
+							<f:selectItems value="#{odabirParnera.partneri}" var="p"
+								itemLabel="#{p.getNaziv()} - #{p.getVrstakuhinje()}"
+								itemValue="#{p.getId()}" />
+						</h:selectOneMenu>
+					</div>
+				</div>
+
+				<div class="forma-grupa">
+					<h:commandButton value="Dohvati obračune"
+						action="#{upravljanjeObracunima.dohvatiPoVremenuIPartneru}"
+						styleClass="forma-gumb" />
+				</div>
+			</h:form>
+		</div>
+
+		<ui:fragment
+			rendered="#{not empty upravljanjeObracunima.trazeniObracuni}">
+			<div id="partneri-container">
+				<table>
+					<thead class="naslov_tablice">
+						<tr>
+							<th>R.br.</th>
+							<th>Partner ID</th>
+							<th>ID stavke</th>
+							<th>Jelo?</th>
+							<th>Količina</th>
+							<th>Cijena</th>
+							<th>Vrijeme</th>
+						</tr>
+					</thead>
+					<tbody>
+						<ui:repeat value="#{upravljanjeObracunima.trazeniObracuni}"
+							var="o" varStatus="st">
+							<tr class="red_tablice">
+								<td class="desno">#{st.index + 1}</td>
+								<td class="desno">#{o.partneri.id}</td>
+								<td>#{o.id}</td>
+								<td class="centar">#{o.jelo ? 'DA' : 'NE'}</td>
+								<td class="desno">#{o.kolicina}</td>
+								<td class="desno">#{o.cijena}</td>
+								<td class="centar"><h:outputText value="#{o.vrijeme}">
+										<f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss"
+											timeZone="Europe/Zagreb" />
+									</h:outputText></td>
+							</tr>
+						</ui:repeat>
+
+					</tbody>
+				</table>
+			</div>
+		</ui:fragment>
+	</ui:define>
+
+	<ui:define name="nav" />
+</ui:composition>

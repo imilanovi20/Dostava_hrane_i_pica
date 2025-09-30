@@ -1,0 +1,73 @@
+<ui:composition template="/predlozak.xhtml"
+	xmlns:ui="jakarta.faces.facelets" xmlns:h="jakarta.faces.html"
+	xmlns:f="jakarta.faces.core">
+
+	<ui:define name="naslovStranice">Vježba 8 zadaća 3 - Dodavanje novog korisnika</ui:define>
+
+	<ui:define name="content">
+
+		<div class="forma-container">
+			<h2>Dodavanje novog korisnika</h2>
+
+			<h:panelGroup
+				rendered="#{not empty upravljanjeKorisnicima.porukaDodan}">
+				<br />
+				<br />
+				<div
+					class="status_item #{upravljanjeKorisnicima.korisnkDodan ? 'status_uspijesan' : 'status_neuspijesan'}"
+					style="padding-bottom: 20px;">
+					<span class="status_ikona">
+						#{upravljanjeKorisnicima.korisnkDodan ? '✓' : '✗'} </span> <span>#{upravljanjeKorisnicima.porukaDodan}</span>
+				</div>
+				<br />
+				<br />
+			</h:panelGroup>
+
+			<h:form>
+				<div class="forma-red-3">
+					<div class="forma-grupa">
+						<label class="forma-label">Korisničko ime</label>
+						<h:inputText value="#{upravljanjeKorisnicima.noviKorisnik}"
+							class="forma-input" required="true" />
+					</div>
+					<div class="forma-grupa">
+						<br /> <label class="forma-label">Ime</label>
+						<h:inputText value="#{upravljanjeKorisnicima.novoIme}"
+							class="forma-input" required="true" />
+						<br />
+					</div>
+					<div class="forma-grupa">
+						<label class="forma-label">Prezime</label>
+						<h:inputText value="#{upravljanjeKorisnicima.novoPrezime}"
+							class="forma-input" required="true" />
+						<br />
+					</div>
+				</div>
+				<div class="forma-red-3">
+					<div class="forma-grupa">
+						<label class="forma-label">Lozinka</label>
+						<h:inputSecret value="#{upravljanjeKorisnicima.novaLozinka}"
+							class="forma-input" required="true" />
+						<br />
+					</div>
+					<div class="forma-grupa">
+						<label class="forma-label">Email</label>
+						<h:inputText value="#{upravljanjeKorisnicima.noviEmail}"
+							class="forma-input" required="true" />
+						<br />
+					</div>
+				</div>
+
+				<h:commandButton value=" Dodaj korisnika " class="forma-gumb"
+					action="#{upravljanjeKorisnicima.dodajKorisnika}" />
+			</h:form>
+		</div>
+
+		<h:outputStylesheet library="css" name="forma.css" />
+		<h:outputStylesheet library="css" name="status.css" />
+	</ui:define>
+
+	<ui:define name="nav">
+	</ui:define>
+
+</ui:composition>

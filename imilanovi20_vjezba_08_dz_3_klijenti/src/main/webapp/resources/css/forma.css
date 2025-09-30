@@ -1,0 +1,161 @@
+:root {
+	--tamno_plava: #4facfe;
+	--svijetlo_plava: #00f2fe;
+	--prijelaz_plava: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+	--siva: #4a5568;
+	--tamno_ljubicasta: #764ba2;
+	--svijetlo_ljubicasta: #667eea;
+	--vrh_tablice: #9d6bd1;
+	--prijelaz_ljubicasta: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	--prijelaz_narancasta: linear-gradient(135deg, #ff6b6b, #ffa500);
+	--prijelaz_siva: linear-gradient(45deg, #fff, #f0f0f0);
+}
+
+.forma-container {
+	margin-left: 20px;
+	margin-top: 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	min-width: 300px;
+	padding: 20px;
+	background: transparent;
+	flex-direction: column;
+	align-items: center;
+	box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+}
+
+.forma_kontroler_container {
+	margin-left: 20px;
+	margin-top: 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	min-width: 300px;
+	padding: 20px;
+	background: transparent;
+	flex-direction: column;
+	align-items: center;
+}
+
+.forma-label {
+	display: block;
+	margin-bottom: 8px;
+	font-weight: 600;
+	color: var(--tamno_ljubicasta);
+	font-size: 12px;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+}
+
+.forma-input {
+	width: 100%;
+	padding: 15px 20px;
+	border: 2px solid var(--svijetlo_ljubicasta);
+	border-radius: 10px;
+	font-size: 12px;
+	font-weight: 500;
+	background: white;
+	transition: all 0.3s ease;
+	box-sizing: border-box;
+}
+
+.forma-select {
+	width: 100%;
+	padding: 15px 20px;
+	border: 2px solid var(--svijetlo_ljubicasta);
+	border-radius: 10px;
+	font-size: 12px;
+	font-weight: 500;
+	background: white;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	box-sizing: border-box;
+	appearance: none;
+	background-image:
+		url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23667eea' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+	background-position: right 12px center;
+	background-repeat: no-repeat;
+	background-size: 16px;
+	padding-right: 45px;
+}
+
+.forma-select:focus {
+	outline: none;
+	border-color: var(--tamno_ljubicasta);
+	box-shadow: 0 0 0 3px rgba(118, 75, 162, 0.1);
+	transform: translateY(-2px);
+}
+
+.forma-select option {
+	padding: 10px;
+	font-weight: 500;
+}
+
+.forma-gumb {
+	width: 100%;
+	padding: 18px 30px;
+	background: var(--prijelaz_narancasta);
+	border: none;
+	border-radius: 12px;
+	color: white;
+	font-size: 12px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	cursor: pointer;
+	margin-top: 30px;
+	transition: all 0.3s ease;
+	box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
+}
+
+.forma-gumb:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 12px 35px rgba(255, 107, 107, 0.4);
+}
+
+.forma-grupa {
+	margin-bottom: 20px;
+	width: 100%;
+	flex: 1;
+}
+
+.forma-red {
+	display: flex;
+	gap: 15px;
+	width: 100%;
+	max-width: 800px;
+	margin-bottom: 20px;
+}
+
+.forma-red .forma-grupa {
+	margin-bottom: 0;
+}
+.forma-red-3 {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 20px;
+    align-items: flex-start; 
+}
+
+.forma-red-3 .forma-grupa {
+    flex: 1;
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.poruka {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    font-weight: 600;
+    background: var(--prijelaz_ljubicasta);
+    color: white;
+    box-shadow: 0 5px 15px rgba(118, 75, 162, 0.3);
+}

@@ -1,0 +1,51 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="jakarta.faces.facelets" xmlns:h="jakarta.faces.html"
+	template="/predlozak.xhtml">
+
+	<ui:define name="naslovStranice">Pregled korisnika</ui:define>
+
+	<ui:define name="content">
+		<h:outputStylesheet library="css" name="tablica.css" />
+
+		<h:form id="skrivenaForma">
+			<h:inputHidden id="idKorisnika"
+				value="#{upravljanjeKorisnicima.idTrazenogKorisnika}" />
+
+			<h:commandButton id="prebaciNaKorisnika"
+				action="#{upravljanjeKorisnicima.dohvatiOdabranogKorisnika}"
+				style="display:none" />
+
+			<div id="partneri-container">
+				<table>
+					<thead class="naslov_tablice">
+						<tr>
+							<th>Ime</th>
+							<th>Prezime</th>
+						</tr>
+					</thead>
+					<tbody>
+						<ui:repeat value="#{upravljanjeKorisnicima.sviKorisnici}"
+							var="kor">
+							<tr class="red_tablice" style="cursor: pointer"
+								onclick="odaberiKorisnika('#{kor.korisnik()}')">
+								<td>#{kor.ime()}</td>
+								<td>#{kor.prezime()}</td>
+							</tr>
+						</ui:repeat>
+					</tbody>
+				</table>
+			</div>
+		</h:form>
+
+		<script type="text/javascript">
+			function odaberiKorisnika(idKorisnika) {
+				document.getElementById('skrivenaForma:idKorisnika').value = idKorisnika;
+				document.getElementById('skrivenaForma:prebaciNaKorisnika')
+						.click();
+			}
+
+		</script>
+	</ui:define>
+
+	<ui:define name="nav" />
+</ui:composition>

@@ -1,0 +1,71 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/predlozak.xhtml">
+
+  <ui:define name="naslovStranice">
+    Vježba 8 – Pretraživanje korisnika
+  </ui:define>
+
+  <ui:define name="content">
+    <h:outputStylesheet library="css" name="forma.css" />
+    <h:outputStylesheet library="css" name="tablica.css" />
+
+    <div class="forma-container">
+      <h2 class="forma-naslov">Pretraživanje korisnika</h2>
+      <h:form>
+        <div class="forma-red">
+          <div class="forma-grupa">
+            <h:outputLabel for="prezime" value="Prezime" styleClass="forma-label" />
+            <h:inputText id="prezime"
+                         value="#{upravljanjeKorisnicima.prezimePretrazivanje}"
+                         styleClass="forma-input" />
+          </div>
+          <div class="forma-grupa">
+            <h:outputLabel for="ime" value="Ime" styleClass="forma-label" />
+            <h:inputText id="ime"
+                         value="#{upravljanjeKorisnicima.imePretrazivanje}"
+                         styleClass="forma-input" />
+          </div>
+        </div>
+        <div class="forma-grupa">
+          <h:commandButton value="Pronađi korisnike"
+                           action="#{upravljanjeKorisnicima.pronadiKorisnike}"
+                           styleClass="forma-gumb" />
+        </div>
+      </h:form>
+    </div>
+
+    <ui:fragment rendered="#{not empty upravljanjeKorisnicima.korisniciPretrazivanje}">
+      <div id="partneri-container">
+        <table>
+          <thead class="naslov_tablice">
+            <tr>
+              <th>R.br.</th>
+              <th>Korisničko ime</th>
+              <th>Ime</th>
+              <th>Prezime</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ui:repeat value="#{upravljanjeKorisnicima.korisniciPretrazivanje}"
+                       var="k"
+                       varStatus="st">
+              <tr class="red_tablice">
+                <td class="desno">#{st.index + 1}</td>
+                <td>#{k.getKorisnik()}</td>
+                <td>#{k.getIme()}</td>
+                <td>#{k.getPrezime()}</td>
+                <td>#{k.getEmail()}</td>
+              </tr>
+            </ui:repeat>
+          </tbody>
+        </table>
+      </div>
+    </ui:fragment>
+  </ui:define>
+
+  <ui:define name="nav" />
+</ui:composition>

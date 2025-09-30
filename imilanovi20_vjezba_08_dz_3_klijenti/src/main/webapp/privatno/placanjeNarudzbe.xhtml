@@ -1,0 +1,125 @@
+<ui:composition template="/predlozak.xhtml"
+	xmlns:ui="jakarta.faces.facelets" xmlns:h="jakarta.faces.html"
+	xmlns:f="jakarta.faces.core">
+
+	<ui:define name="naslovStranice">Vježba 8 zadaća 3 - Nova narudžba</ui:define>
+	<ui:define name="content">
+		<h:outputStylesheet library="css" name="tablica.css" />
+		<h:outputStylesheet library="css" name="status.css" />
+		<h:outputStylesheet library="css" name="forma.css" />
+		<h:outputStylesheet library="css" name="kartica.css" />
+
+		<br />
+
+		<ui:fragment rendered="#{!prijavaKorisnika.prijavljen}">
+			<div class="status_item status_neuspijesan"
+				style="padding-bottom: 20px;">
+				<span class="status_ikona"> ✗</span> <span> Korisnik nije
+					prijavljen</span>
+			</div>
+		</ui:fragment>
+
+		<ui:fragment
+			rendered="#{prijavaKorisnika.prijavljen and !prijavaKorisnika.partnerOdabran}">
+			<div class="status_item status_neuspijesan"
+				style="padding-bottom: 20px;">
+				<span class="status_ikona"> ✗</span> <span> Partner nije
+					odabran</span>
+			</div>
+		</ui:fragment>
+
+		<ui:fragment
+			rendered="#{prijavaKorisnika.prijavljen and prijavaKorisnika.partnerOdabran}">
+
+			<ui:fragment
+				rendered="#{upravljanjeNarudzbama.statusPostojiNarudzba != 200}">
+				<div class="forma-container">
+					<br />
+					<h:form>
+						<div class="status_item status_neuspijesan"
+							style="padding-bottom: 20px;">
+							<span class="status_ikona"> </span> ✗ <span>Nemate otvorenu narudžbu</span>
+
+						</div>
+
+						<h:button id="submit" value=" Otiđi na kreiranje nove narudžbe "
+							class="forma-gumb" outcome="/privatno/novaNarudzba.xhtml" />
+
+					</h:form>
+				</div>
+			</ui:fragment>
+
+			<ui:fragment
+				rendered="#{upravljanjeNarudzbama.statusPostojiNarudzba == 200}">
+				<div class="forma-container">
+					<h:form>
+						<h:commandButton id="submit" value="Plati narudžbu"
+							class="forma-gumb" action="#{upravljanjeNarudzbama.platiRacun}" />
+					</h:form>
+				</div>
+
+				<div id="partneri-container">
+					<table>
+						<thead class="naslov_tablice">
+							<tr>
+								<th>Kor.</th>
+								<th>Id</th>
+								<th>Jelo</th>
+								<th>Kol</th>
+								<th>Cijena</th>
+								<th>Vrijeme</th>
+							</tr>
+						</thead>
+						<tbody>
+							<ui:repeat value="#{upravljanjeNarudzbama.stavkeNarudzbe}"
+								var="stavkeJelo">
+								<ui:fragment rendered="#{stavkeJelo.jelo() == true}">
+									<tr class="red_tablice">
+										<td>#{stavkeJelo.korisnik()}</td>
+										<td>#{stavkeJelo.id()}</td>
+										<td>#{stavkeJelo.jelo()}</td>
+										<td>#{stavkeJelo.kolicina()}</td>
+										<td>#{stavkeJelo.cijena()}</td>
+										<td>#{stavkeJelo.vrijeme()}</td>
+									</tr>
+								</ui:fragment>
+							</ui:repeat>
+						</tbody>
+					</table>
+
+					<table>
+						<thead class="naslov_tablice">
+							<tr>
+								<th>Kor.</th>
+								<th>Id</th>
+								<th>Jelo</th>
+								<th>Kol</th>
+								<th>Cijena</th>
+								<th>Vrijeme</th>
+							</tr>
+						</thead>
+						<tbody>
+							<ui:repeat value="#{upravljanjeNarudzbama.stavkeNarudzbe}"
+								var="stavkePice">
+								<ui:fragment rendered="#{stavkePice.jelo() == false}">
+									<tr class="red_tablice">
+										<td>#{stavkePice.korisnik()}</td>
+										<td>#{stavkePice.id()}</td>
+										<td>#{stavkePice.jelo()}</td>
+										<td>#{stavkePice.kolicina()}</td>
+										<td>#{stavkePice.cijena()}</td>
+										<td>#{stavkePice.vrijeme()}</td>
+									</tr>
+								</ui:fragment>
+							</ui:repeat>
+						</tbody>
+					</table>
+				</div>
+
+
+			</ui:fragment>
+		</ui:fragment>
+	</ui:define>
+	<ui:define name="nav">
+	</ui:define>
+</ui:composition>

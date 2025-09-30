@@ -1,0 +1,152 @@
+<ui:composition template="/predlozak.xhtml"
+	xmlns:ui="jakarta.faces.facelets" xmlns:h="jakarta.faces.html"
+	xmlns:f="jakarta.faces.core">
+
+	<ui:define name="naslovStranice">Vježba 8 zadaća 3 - Početak Partner</ui:define>
+	<ui:define name="content">
+
+		<h:outputStylesheet library="css" name="kartica.css" />
+		<h:outputStylesheet library="css" name="tablica.css" />
+		<h:outputStylesheet library="css" name="status.css" />
+		<h:outputStylesheet library="css" name="forma.css" />
+
+		<div style="text-align: center;">
+
+			<a
+				href="#{facesContext.externalContext.requestContextPath}/mvc/tvrtka/pocetak">Početna
+				stranica Tvrtka</a>
+
+		</div>
+		<h:panelGroup rendered="#{!prijavaKorisnika.prijavljen}">
+			<div class="forma-container">
+				<br />
+				<h:form>
+					<h:button id="submit" value=" Privatni pogledi " class="forma-gumb"
+						outcome="privatno/index.xhtml" />
+				</h:form>
+
+			</div>
+		</h:panelGroup>
+
+		<div class="narudzba-container" style="gap: 20px;">
+
+			<div class="narudzba-kartica">
+				<div class="narudzba-id">JAVNO</div>
+				<div class="narudzba-naziv">Javni pogledi</div>
+				<h:form>
+					<h:commandButton value="Početna stranica Partner"
+						styleClass="narudzba-gumb"
+						action="/index.xhtml?faces-redirect=true" />
+					<br />
+					<br />
+					<h:commandButton value="Provjera poslužitelja partner"
+						styleClass="narudzba-gumb"
+						action="/provjera.xhtml?faces-redirect=true" />
+					<br />
+					<br />
+					<h:commandButton value="Pregled partnera"
+						styleClass="narudzba-gumb"
+						action="/partneri.xhtml?faces-redirect=true" />
+					<br />
+					<br />
+					<h:commandButton value="Dodavanje korisnika"
+						styleClass="narudzba-gumb"
+						action="/dodajKorisnika.xhtml?faces-redirect=true" />
+				</h:form>
+			</div>
+
+			<h:panelGroup rendered="#{prijavaKorisnika.prijavljen}">
+				<div class="narudzba-kartica">
+					<div class="narudzba-id">PRIVATNO</div>
+					<div class="narudzba-naziv">Privatni pogledi</div>
+					<h:form>
+						<h:panelGroup
+							rendered="#{upravljanjeNarudzbama.statusPostojiNarudzba != 200}">
+							<h:commandButton value="Odabir partnera"
+								styleClass="narudzba-gumb"
+								action="/privatno/odabirPartnera.xhtml?faces-redirect=true" />
+							<br />
+							<br />
+						</h:panelGroup>
+
+						<h:panelGroup rendered="#{prijavaKorisnika.partnerOdabran}">
+							<h:commandButton value="Jelovnik partnera"
+								styleClass="narudzba-gumb"
+								action="/privatno/jelovnikPartnera.xhtml?faces-redirect=true" />
+							<br />
+							<br />
+							<h:commandButton value="Karta pića partnera"
+								styleClass="narudzba-gumb"
+								action="/privatno/kartaPicaPartnera.xhtml?faces-redirect=true" />
+							<br />
+							<br />
+
+							<h:panelGroup
+								rendered="#{upravljanjeNarudzbama.statusPostojiNarudzba != 200}">
+								<h:commandButton value="Nova narudžba"
+									styleClass="narudzba-gumb"
+									action="/privatno/novaNarudzba.xhtml?faces-redirect=true" />
+								<br />
+								<br />
+							</h:panelGroup>
+
+							<h:panelGroup
+								rendered="#{upravljanjeNarudzbama.statusPostojiNarudzba == 200}">
+								<h:commandButton value="Dopuna narudžbe"
+									styleClass="narudzba-gumb"
+									action="/privatno/dopunaNarudzbe.xhtml?faces-redirect=true" />
+								<br />
+								<br />
+								<h:commandButton value="Plaćanje narudžbe"
+									styleClass="narudzba-gumb"
+									action="/privatno/placanjeNarudzbe.xhtml?faces-redirect=true" />
+								<br />
+								<br />
+							</h:panelGroup>
+						</h:panelGroup>
+					</h:form>
+				</div>
+			</h:panelGroup>
+
+			<ui:fragment
+				rendered="#{facesContext.externalContext.isUserInRole('admin')}">
+				<div class="narudzba-kartica">
+					<div class="narudzba-id">ADMIN</div>
+					<div class="narudzba-naziv">Admin pogledi</div>
+					<h:form>
+						<h:commandButton value="Spavanje poslužitelja partner"
+							styleClass="narudzba-gumb"
+							action="/admin/spavanje.xhtml?faces-redirect=true" />
+						<br />
+						<br />
+						<h:commandButton value="Pregled obračuna"
+							styleClass="narudzba-gumb"
+							action="/admin/obracuni.xhtml?faces-redirect=true" />
+						<br />
+						<br />
+						<h:commandButton value="Pregled obračuna partnera"
+							styleClass="narudzba-gumb"
+							action="/admin/obracuniPartnera.xhtml?faces-redirect=true" />
+						<br />
+						<br />
+						<h:commandButton value="Korisnici" styleClass="narudzba-gumb"
+							action="/admin/korisnici.xhtml?faces-redirect=true" />
+						<br />
+						<br />
+						<h:commandButton value="Pretraživanje korisnika"
+							styleClass="narudzba-gumb"
+							action="/admin/korisniciFiltriranje.xhtml?faces-redirect=true" />
+						<br />
+						<br />
+						<h:commandButton value="Nadzorna konzola partnera"
+							styleClass="narudzba-gumb"
+							action="/admin/nadzornaKonzolaPartnera.xhtml?faces-redirect=true" />
+					</h:form>
+				</div>
+			</ui:fragment>
+
+		</div>
+	</ui:define>
+	<ui:define name="nav">
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,52 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="jakarta.faces.facelets" xmlns:h="jakarta.faces.html"
+	xmlns:f="jakarta.faces.core" template="/predlozak.xhtml">
+
+	<ui:define name="naslovStranice">Vježba 8 zadaća 3 – Spavanje poslužitelja</ui:define>
+
+	<ui:define name="content">
+		<div class="forma-container">
+			<h:outputStylesheet library="css" name="status.css" />
+			<h:outputStylesheet library="css" name="forma.css" />
+			<h2>Aktiviraj spavanje poslužitelja</h2>
+
+			<h:panelGroup
+				rendered="#{not empty radPosluziteljaPartner.vrijemeSpavanja}">
+				<h:panelGroup
+					styleClass="#{radPosluziteljaPartner.statusSpavanja == 200 
+                                     ? 'status_item status_uspijesan' 
+                                     : 'status_item status_neuspijesan'}"
+					style="padding-bottom:20px">
+					<h:outputText
+						value="#{radPosluziteljaPartner.statusSpavanja == 200 ? '✓' : '✗'}"
+						styleClass="status_ikona" />
+					<h:outputText
+						value="#{radPosluziteljaPartner.statusSpavanja == 200
+               ? 'Poslužitelj je uspješno spavao'
+               : 'Spavanje poslužitelja nije uspjelo'}" />
+				</h:panelGroup>
+			</h:panelGroup>
+
+			<h:form prependId="false">
+				<div class="forma-grupa">
+					<h:outputLabel for="vrijeme" value="Vrijeme spavanja"
+						styleClass="forma-label" />
+					<h:inputText id="vrijeme"
+						value="#{radPosluziteljaPartner.vrijemeSpavanja}" required="true"
+						requiredMessage="Unesite trajanje spavanja!"
+						styleClass="forma-input" type="number" min="1" step="1"
+						placeholder="5000">
+						<f:convertNumber integerOnly="true" />
+						<f:validateLongRange minimum="1" />
+					</h:inputText>
+				</div>
+
+				<h:commandButton value="Aktiviraj spavanje" styleClass="forma-gumb"
+					action="#{radPosluziteljaPartner.aktivirajSpavanjePartnera}">
+				</h:commandButton>
+			</h:form>
+		</div>
+	</ui:define>
+
+	<ui:define name="nav" />
+</ui:composition>

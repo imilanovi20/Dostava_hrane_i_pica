@@ -1,0 +1,49 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                template="/predlozak.xhtml">
+
+  <ui:define name="naslovStranice">Pregled partnera</ui:define>
+
+  <ui:define name="content">
+    <h:outputStylesheet library="css" name="tablica.css" />
+
+    <h:form id="skrivenaForma">
+      <h:inputHidden id="idPartnera"
+                     value="#{odabirParnera.idTrazenogPartnera}" />
+
+      <h:commandButton id="prebaciNaPartner"
+                       action="#{odabirParnera.dohvatiOdabranogPartnera}"
+                       style="display:none" />
+
+      <div id="partneri-container">
+        <table>
+          <thead class="naslov_tablice">
+            <tr>
+              <th>Naziv partnera</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ui:repeat value="#{odabirParnera.partneri}"
+                       var="p">
+              <tr class="red_tablice"
+                  style="cursor: pointer"
+                  onclick="odaberiPartner('#{p.getId()}')">
+                <td>#{p.getNaziv()}</td>
+              </tr>
+            </ui:repeat>
+          </tbody>
+        </table>
+      </div>
+    </h:form>
+
+    <script type="text/javascript">
+      function odaberiPartner(idPartnera) {
+        document.getElementById('skrivenaForma:idPartnera').value = idPartnera;
+        document.getElementById('skrivenaForma:prebaciNaPartner').click();
+      }
+    </script>
+  </ui:define>
+
+  <ui:define name="nav" />
+</ui:composition>

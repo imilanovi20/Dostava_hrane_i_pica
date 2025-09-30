@@ -1,0 +1,196 @@
+<ui:composition template="/predlozak.xhtml"
+	xmlns:ui="jakarta.faces.facelets" xmlns:h="jakarta.faces.html"
+	xmlns:f="jakarta.faces.core">
+
+	<ui:define name="naslovStranice">Vježba 8 zadaća 3 - Nova narudžba</ui:define>
+	<ui:define name="content">
+		<h:outputStylesheet library="css" name="tablica.css" />
+		<h:outputStylesheet library="css" name="status.css" />
+		<h:outputStylesheet library="css" name="forma.css" />
+		<h:outputStylesheet library="css" name="kartica.css" />
+
+		<br />
+
+		<ui:fragment rendered="#{!prijavaKorisnika.prijavljen}">
+			<div class="status_item status_neuspijesan"
+				style="padding-bottom: 20px;">
+				<span class="status_ikona"> ✗</span> <span> Korisnik nije
+					prijavljen</span>
+			</div>
+		</ui:fragment>
+
+		<ui:fragment
+			rendered="#{prijavaKorisnika.prijavljen and !prijavaKorisnika.partnerOdabran}">
+			<div class="status_item status_neuspijesan"
+				style="padding-bottom: 20px;">
+				<span class="status_ikona"> ✗</span> <span> Partner nije
+					odabran</span>
+			</div>
+		</ui:fragment>
+
+		<ui:fragment
+			rendered="#{prijavaKorisnika.prijavljen and prijavaKorisnika.partnerOdabran}">
+
+			<ui:fragment
+				rendered="#{upravljanjeNarudzbama.statusPostojiNarudzba != 200}">
+				<div class="forma-container">
+					<br />
+					<h:form>
+						<h:commandButton id="submit" value="Kreiraj novu narudžbu"
+							class="forma-gumb"
+							action="#{upravljanjeNarudzbama.dodajNovuNarudzbu}" />
+					</h:form>
+				</div>
+			</ui:fragment>
+
+			<ui:fragment
+				rendered="#{upravljanjeNarudzbama.statusPostojiNarudzba == 200}">
+				<div class="forma-container">
+					<h:form>
+						<h:commandButton id="submit" value="Plati narudžbu"
+							class="forma-gumb" action="#{upravljanjeNarudzbama.platiRacun}" />
+					</h:form>
+				</div>
+				<h2 style="text-align: center;">Jelovnik</h2>
+				<div class="narudzba-container">
+					<h:dataTable value="#{upravljanjeNarudzbama.jelovnikPartnera}"
+						var="jelo" styleClass="narudzba-grid-table narudzba-container"
+						headerClass="hidden" border="0" cellpadding="0" cellspacing="0">
+						<h:column>
+							<div class="narudzba-kartica">
+								<div class="narudzba-id">#{jelo.id()}</div>
+								<div class="narudzba-naziv">#{jelo.naziv()}</div>
+								<div class="narudzba-cijena">#{jelo.cijena()} €</div>
+
+								<h:form>
+									<label class="narudzba-label">Količina:</label>
+									<h:inputText
+										value="#{upravljanjeNarudzbama.novaNarudzbaKolicina}"
+										styleClass="narudzba-input" placeholder="Unesite količinu"
+										required="true" type="number" min="1" max="100" step="0.01">
+										<f:convertNumber type="number" maxFractionDigits="2"
+											groupingUsed="false" />
+									</h:inputText>
+
+									<h:commandButton value="Dodaj" styleClass="narudzba-gumb"
+										action="#{upravljanjeNarudzbama.dodajJelo()}">
+										<f:setPropertyActionListener
+											target="#{upravljanjeNarudzbama.novaNarudzbaId}"
+											value="#{jelo.id()}" />
+										<f:setPropertyActionListener
+											target="#{upravljanjeNarudzbama.novaNarudzbaCijena}"
+											value="#{jelo.cijena()}" />
+										<f:setPropertyActionListener
+											target="#{upravljanjeNarudzbama.novaNarudzbaTip}"
+											value="true" />
+									</h:commandButton>
+								</h:form>
+							</div>
+						</h:column>
+					</h:dataTable>
+				</div>
+
+				<h2 style="text-align: center;">Karta pića</h2>
+				<div class="narudzba-container">
+					<h:dataTable value="#{upravljanjeNarudzbama.kartaPicaPartnera}"
+						var="pice" styleClass="narudzba-grid-table narudzba-container"
+						headerClass="hidden" border="0" cellpadding="0" cellspacing="0">
+						<h:column>
+							<div class="narudzba-kartica">
+								<div class="narudzba-id">#{pice.id()}</div>
+								<div class="narudzba-naziv">#{pice.naziv()}</div>
+								<div class="narudzba-cijena">#{pice.cijena()} €</div>
+
+								<h:form>
+									<label class="narudzba-label">Količina:</label>
+									<h:inputText
+										value="#{upravljanjeNarudzbama.novaNarudzbaKolicina}"
+										styleClass="narudzba-input" placeholder="Unesite količinu"
+										required="true" type="number" min="1" max="100" step="0.01">
+										<f:convertNumber type="number" maxFractionDigits="2"
+											groupingUsed="false" />
+									</h:inputText>
+
+									<h:commandButton value="Dodaj" styleClass="narudzba-gumb"
+										action="#{upravljanjeNarudzbama.dodajPice()}">
+										<f:setPropertyActionListener
+											target="#{upravljanjeNarudzbama.novaNarudzbaId}"
+											value="#{pice.id()}" />
+										<f:setPropertyActionListener
+											target="#{upravljanjeNarudzbama.novaNarudzbaCijena}"
+											value="#{pice.cijena()}" />
+										<f:setPropertyActionListener
+											target="#{upravljanjeNarudzbama.novaNarudzbaTip}"
+											value="true" />
+									</h:commandButton>
+								</h:form>
+							</div>
+						</h:column>
+					</h:dataTable>
+				</div>
+
+				<div id="partneri-container">
+					<table>
+						<thead class="naslov_tablice">
+							<tr>
+								<th>Kor.</th>
+								<th>Id</th>
+								<th>Jelo</th>
+								<th>Kol</th>
+								<th>Cijena</th>
+								<th>Vrijeme</th>
+							</tr>
+						</thead>
+						<tbody>
+							<ui:repeat value="#{upravljanjeNarudzbama.stavkeNarudzbe}"
+								var="stavkeJelo">
+								<ui:fragment rendered="#{stavkeJelo.jelo() == true}">
+									<tr class="red_tablice">
+										<td>#{stavkeJelo.korisnik()}</td>
+										<td>#{stavkeJelo.id()}</td>
+										<td>#{stavkeJelo.jelo()}</td>
+										<td>#{stavkeJelo.kolicina()}</td>
+										<td>#{stavkeJelo.cijena()}</td>
+										<td>#{stavkeJelo.vrijeme()}</td>
+									</tr>
+								</ui:fragment>
+							</ui:repeat>
+						</tbody>
+					</table>
+
+					<table>
+						<thead class="naslov_tablice">
+							<tr>
+								<th>Kor.</th>
+								<th>Id</th>
+								<th>Jelo</th>
+								<th>Kol</th>
+								<th>Cijena</th>
+								<th>Vrijeme</th>
+							</tr>
+						</thead>
+						<tbody>
+							<ui:repeat value="#{upravljanjeNarudzbama.stavkeNarudzbe}"
+								var="stavkePice">
+								<ui:fragment rendered="#{stavkePice.jelo() == false}">
+									<tr class="red_tablice">
+										<td>#{stavkePice.korisnik()}</td>
+										<td>#{stavkePice.id()}</td>
+										<td>#{stavkePice.jelo()}</td>
+										<td>#{stavkePice.kolicina()}</td>
+										<td>#{stavkePice.cijena()}</td>
+										<td>#{stavkePice.vrijeme()}</td>
+									</tr>
+								</ui:fragment>
+							</ui:repeat>
+						</tbody>
+					</table>
+				</div>
+
+
+			</ui:fragment>
+		</ui:fragment>
+	</ui:define>
+	<ui:define name="nav">
+	</ui:define>
+</ui:composition>

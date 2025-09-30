@@ -1,0 +1,72 @@
+<ui:composition template="/predlozak.xhtml"
+    xmlns:ui="jakarta.faces.facelets" xmlns:h="jakarta.faces.html"
+    xmlns:f="jakarta.faces.core">
+
+    <ui:define name="naslovStranice">Vježba 8 zadaća 3 - Prikaz karte pića</ui:define>
+    <ui:define name="content">
+        <h:outputStylesheet library="css" name="tablica.css" />
+        <h:outputStylesheet library="css" name="status.css" />
+        
+        <br/>
+        
+        <ui:fragment rendered="#{!prijavaKorisnika.prijavljen}">
+            <div class="status_item status_neuspijesan" style="padding-bottom: 20px;">
+                <span class="status_ikona"> ✗</span> 
+                <span> Korisnik nije prijavljen</span>
+            </div>
+        </ui:fragment>
+
+        <ui:fragment rendered="#{prijavaKorisnika.prijavljen and !prijavaKorisnika.partnerOdabran}">
+            <div class="status_item status_neuspijesan" style="padding-bottom: 20px;">
+                <span class="status_ikona"> ✗</span> 
+                <span> Partner nije odabran</span>
+            </div>
+        </ui:fragment>
+
+        <ui:fragment rendered="#{prijavaKorisnika.prijavljen and prijavaKorisnika.partnerOdabran}">
+            
+            <ui:fragment rendered="#{upravljanjeNarudzbama.statusKartaPica != null and upravljanjeNarudzbama.statusKartaPica != 200}">
+                <div class="status_item status_neuspijesan" style="padding-bottom: 20px;">
+                    <span class="status_ikona"> ✗</span> 
+                    <span> Greška pri dohvaćanju karte pića (Status: #{upravljanjeNarudzbama.statusKartaPica})</span>
+                </div>
+            </ui:fragment>
+            
+            <ui:fragment rendered="#{upravljanjeNarudzbama.statusKartaPica == 200 and upravljanjeNarudzbama.kartaPicaPartnera != null}">
+                <div id="partneri-container">
+                    <table>
+                        <thead class="naslov_tablice">
+                            <tr>
+                                <th>ID</th>
+                                <th>Naziv pića</th>
+                                <th>Količina</th>
+                                <th>Cijena</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ui:repeat value="#{upravljanjeNarudzbama.kartaPicaPartnera}" var="pice">
+                                <tr class="red_tablice">
+                                    <td>#{pice.id()}</td>
+                                    <td>#{pice.naziv()}</td>
+                                    <td>#{pice.kolicina()}</td>
+                                    <td>#{pice.cijena()}</td>
+                                </tr>
+                            </ui:repeat>
+                        </tbody>
+                    </table>
+                </div>
+            </ui:fragment>
+            
+            <ui:fragment rendered="#{upravljanjeNarudzbama.statusKartaPica == 200 and upravljanjeNarudzbama.kartaPicaPartnera == null}">
+                <div class="status_item status_neuspijesan" style="padding-bottom: 20px;">
+                    <span class="status_ikona"> ✗</span> 
+                    <span> Karta pića nije dostupna</span>
+                </div>
+            </ui:fragment>
+            
+        </ui:fragment>
+        
+    </ui:define>
+    <ui:define name="nav">
+    </ui:define>
+</ui:composition>

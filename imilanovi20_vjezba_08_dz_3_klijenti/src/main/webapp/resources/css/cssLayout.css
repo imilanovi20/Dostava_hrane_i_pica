@@ -1,0 +1,251 @@
+/**
+ * Copyright (c), Eclipse Foundation, Inc. and its licensors.
+ *
+ * All rights reserved.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Distribution License v1.0, which is available at
+ * https://www.eclipse.org/org/documents/edl-v10.php
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+:root {
+	--tamno_plava: #4facfe;
+	--svijetlo_plava: #00f2fe;
+	--prijelaz_plava: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+	--siva: #4a5568;
+	--tamno_ljubicasta: #764ba2;
+	--svijetlo_ljubicasta: #667eea;
+	--prijelaz_ljubicasta: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	--prijelaz_narancasta: linear-gradient(135deg, #ff6b6b, #ffa500);
+	--prijelaz_siva: linear-gradient(45deg, #fff, #f0f0f0);
+
+}
+
+#top {
+    position: relative;
+    background: var(--prijelaz_ljubicasta);
+    font-weight: 500;
+    text-shadow: 0.5px 0 0 currentColor;
+    padding: 20px 40px 40px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+    margin: 0px 0px 10px 0px;
+    color: white;
+    border-radius: 8px;
+    min-height: 120px;
+}
+
+.logo-sekcija {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    z-index: 3;
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+    background: var(--prijelaz_narancasta);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+    animation: pulse 2s infinite;
+}
+
+.logo::before {
+    content: '🍕';
+    font-size: 22px;
+    position: absolute;
+}
+
+.logo::after {
+    content: '';
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 14px;
+    animation: rotate 10s linear infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.naziv_tvrtke {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(45deg, #fff, #f0f0f0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.glavni_naslov{
+    text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+    margin: 60px 0 20px 0;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+    position: relative;
+}
+
+.informacije {
+    text-align: center;
+    font-size: 13px;
+    line-height: 1.6;
+    z-index: 2;
+    position: relative;
+    opacity: 0.95;
+}
+
+#top::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+    opacity: 0.3;
+    z-index: 1;
+}
+
+#top::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 20"><path d="M0,20 C150,0 350,0 600,10 C850,20 1050,0 1200,0 L1200,20 Z" fill="%23f5f7fa"/></svg>');
+    z-index: 4;
+}
+
+#top::before,
+#top::after {
+  pointer-events: none;
+}
+
+#top div p {
+    margin: 0;
+    padding: 0;
+    display: block;
+}
+
+#bottom {
+	position: relative;
+	background-color: #c2dfef;
+	padding: 5px;
+	margin: 10px 0px 0px 0px;
+}
+
+#left {
+	float: left;
+	background-color: #ece3a5;
+	padding: 5px;
+	width: 150px;
+}
+
+#right {
+	float: right;
+	background-color: #ece3a5;
+	padding: 5px;
+	width: 150px;
+}
+
+.center_content {
+	float: left;
+	background-color: #ffffff;
+	padding: 5px;
+}
+
+.nav {
+	float: left;
+	width: var(--sidebar-width);
+	background: rgba(255, 255, 255, 0.95);
+	backdrop-filter: blur(20px);
+	border-right: 1px solid var(--border-gray);
+	box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1), 0 0 0 1px
+		rgba(255, 255, 255, 0.5);
+	min-height: 150vh;
+	text-transform: uppercase;
+	font-weight: 500;
+	text-shadow: 0.5px 0 0 currentColor;
+	border-radius: 8px;
+	overflow: hidden;
+	color: var(--svijetlo_ljubicasta);
+}
+
+.nav ul {
+	list-style: none;
+	padding: 0 15px;
+}
+
+.nav li {
+	margin-bottom: 8px;
+}
+
+.nav li a {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 16px 20px;
+	color: var(--svijetlo_ljubicasta);
+	text-decoration: none;
+	font-size: 13px;
+	font-weight: 500;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	border-radius: 12px;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	position: relative;
+	overflow: hidden;
+}
+
+.nav li a:hover {
+	text-decoration: none !important;
+	background: var(--prijelaz_ljubicasta);
+	color: white;
+	box-shadow: 0 8px 25px rgba(79, 172, 254, 0.4);
+	transition: transform 0.3s ease;
+}
+
+.left_content {
+	background-color: var(--primary-blue);
+	padding: 5px;
+	margin-left: var(--sidebar-width);
+}
+
+.right_content {
+	background-color: var(--light-gray);
+	padding: 5px;
+	margin: 0px 170px 0px var(--sidebar-width);
+}
+
+#top a:link, #top a:visited {
+	color: white;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+#top a:link:hover, #top a:visited:hover {
+	color: black;
+	font-weight: bold;
+	text-decoration: underline;
+}
