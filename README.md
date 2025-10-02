@@ -15,7 +15,7 @@ Aplikacija u sklopu predmeta Napredne web tehnologije i servisi  (Fakultet organ
 
   - Jakarta MVC – korisničko sučelje
 
- - Jakarta Faces (JSF) – sučelje za rad partnera i korisnika
+   - Jakarta Faces (JSF) – sučelje za rad partnera i korisnika
 
   - Jakarta JPA – rad s bazom podataka (entiteti i fasade)
 
