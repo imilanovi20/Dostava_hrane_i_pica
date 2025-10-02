@@ -1,0 +1,57 @@
+version: '1'
+
+name: imilanovi20_docker_compose
+
+networks:
+  mreza_imilanovi20:
+    external: true
+    name: mreza_imilanovi20
+
+volumes:
+  svezak_imilanovi20:
+    external: true
+    name: svezak_imilanovi20
+
+services:
+  tvrtka:
+    image: tvrtka_imilanovi20
+    container_name: tvrtka_imilanovi20
+    hostname: tvrtka_imilanovi20
+    build:
+      context: ./imilanovi20_vjezba_08_dz_3_tvrtka
+      dockerfile: Dockerfile
+    networks:
+      mreza_imilanovi20:
+        ipv4_address: 20.24.5.2
+    volumes:
+      - svezak_imilanovi20:/usr/app/podaci
+      
+    
+  partner:
+    image: partner_imilanovi20
+    container_name: partner_imilanovi20
+    hostname: partner_imilanovi20
+    build:
+      context: ./imilanovi20_vjezba_08_dz_3_partner
+      dockerfile: Dockerfile 
+    networks:
+      mreza_imilanovi20:
+        ipv4_address: 20.24.5.3
+    volumes:
+      - svezak_imilanovi20:/usr/app/podaci
+    depends_on:
+      - tvrtka
+
+  servisi:
+    image: servis_imilanovi20
+    container_name: servis_imilanovi20
+    hostname: servis_imilanovi20
+    build:
+      context: ./imilanovi20_vjezba_08_dz_3_servisi
+      dockerfile: Dockerfile
+    networks:
+      mreza_imilanovi20:
+        ipv4_address: 20.24.5.20
+    depends_on:
+      - tvrtka
+      - partner
